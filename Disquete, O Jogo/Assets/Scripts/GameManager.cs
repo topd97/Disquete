@@ -30,6 +30,6 @@ public class GameManager : MonoBehaviour {
 
     void InitGame()
     {
-        scriptTabuleiro.SetupDoTabuleiro();
+        //scriptTabuleiro.SetupDoTabuleiro();
     }
 }
