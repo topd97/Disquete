@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Player : PhysicsObject 
 {
@@ -108,14 +109,10 @@ public class Player : PhysicsObject
 
     void OnTriggerEnter2D(Collider2D other)
     {
-       
-    }
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.gameObject.tag == "Inimigo")
+       if(other.gameObject.tag=="Espinho")
         {
-            collision.gameObject.SetActive(false);
-            inimigosmortos++;
+
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name); //morreu reinicia a fase
         }
     }
 }
