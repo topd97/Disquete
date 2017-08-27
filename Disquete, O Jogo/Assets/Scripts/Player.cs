@@ -43,9 +43,14 @@ public class Player : PhysicsObject
     public static int count;
     public static bool moving;
     public static bool gula1, gula2, gula3;
+    public static int inimigosmortos;
+
     private SpriteRenderer spriteRenderer;
     private Animator animator;
-    public static int inimigosmortos;
+    
+
+
+
     enum CurrentStage
     {
         ganancia,
@@ -77,6 +82,7 @@ public class Player : PhysicsObject
 
     protected override void ComputeVelocity()
     {
+        animator.SetBool("Pulando", false);
         Vector2 move = Vector2.zero;
         move.x = Input.GetAxis("Horizontal");
         if (Input.GetButtonDown("Jump") && grounded)
@@ -85,24 +91,34 @@ public class Player : PhysicsObject
         }
         else if (Input.GetButtonUp("Jump"))
         {
+           
             if (velocity.y > 0)
+            {
                 velocity.y = velocity.y * 0.5f;
+                animator.SetBool("Pulando", true);
+
+            }
+            
+
         }
 
         bool flipSprite = (spriteRenderer.flipX ? (move.x < -0.01f) : (move.x > 0.01f));
-        if (flipSprite)
+
+        
+        if (!flipSprite)
         {
             spriteRenderer.flipX = !spriteRenderer.flipX;
         }
         if (move.x > 0.1f || move.x < -0.01f)
         {
             moving = true;
-            animator.SetBool("moving", true);
+            animator.SetBool("Parado", false);
         }
         else
         {
             moving = false;
-            animator.SetBool("moving", false);
+            animator.SetBool("Parado", true);
+
         }
         targetVelocity = move * maxSpeed;
     }
