@@ -44,10 +44,12 @@ public class Player : PhysicsObject
     public static bool moving;
     public static bool gula1, gula2, gula3;
     public static int inimigosmortos;
+     
 
     private SpriteRenderer spriteRenderer;
     private Animator animator;
-    
+    private bool testeRolamento = false;
+
 
 
 
@@ -79,14 +81,29 @@ public class Player : PhysicsObject
         spriteRenderer = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
     }
+   
 
     protected override void ComputeVelocity()
     {
         animator.SetBool("Pulando", false);
         Vector2 move = Vector2.zero;
         move.x = Input.GetAxis("Horizontal");
+        
+
+        if (velocity.y < 0.05)
+        {
+
+            if (testeRolamento == true)
+            {
+                animator.SetBool("rolar", true);
+                testeRolamento = false;
+            }
+            testeRolamento = true;
+        }
+
         if (Input.GetButtonDown("Jump") && grounded)
         {
+            animator.SetBool("Pulando", true);
             velocity.y = jumpTakeOffSpeed;
         }
         else if (Input.GetButtonUp("Jump"))
@@ -95,19 +112,24 @@ public class Player : PhysicsObject
             if (velocity.y > 0)
             {
                 velocity.y = velocity.y * 0.5f;
-                animator.SetBool("Pulando", true);
-
             }
             
-
+        }
+        if(velocity.y!=0)
+        {
+            
         }
 
-        bool flipSprite = (spriteRenderer.flipX ? (move.x < -0.01f) : (move.x > 0.01f));
+        bool flipSprite = (spriteRenderer.flipX ? (move.x > -0.01f) : (move.x <= 0.01f));
 
         
-        if (!flipSprite)
+        if(move.x!=0)
         {
-            spriteRenderer.flipX = !spriteRenderer.flipX;
+            if (flipSprite)
+            {
+                spriteRenderer.flipX = !spriteRenderer.flipX;
+
+            }
         }
         if (move.x > 0.1f || move.x < -0.01f)
         {
