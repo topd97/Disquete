@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class Player : PhysicsObject 
+public class PlayerScript : PhysicsObject 
 {
 
     /* public Sprite mario;
@@ -42,14 +42,13 @@ public class Player : PhysicsObject
     public float jumpTakeOffSpeed = 7;
     public static int count;
     public static bool moving;
-    public static bool gula1, gula2, gula3;
-    public static int inimigosmortos;
+    public string nextSceane;
      
 
     private SpriteRenderer spriteRenderer;
     private Animator animator;
     private bool testeRolamento = false;
-
+    public static bool getFita;
 
 
 
@@ -68,16 +67,15 @@ public class Player : PhysicsObject
     // Use this for initialization
     void Start()
     {
+        getFita = false;
         count = 0;
-        inimigosmortos = 0;
         moving = false;
-        gula1 = false;
-        gula2 = false;
-        gula3 = false;
+     
     }
 
     void Awake()
     {
+        getFita = false;
         spriteRenderer = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
     }
@@ -151,6 +149,11 @@ public class Player : PhysicsObject
         {
 
             SceneManager.LoadScene(SceneManager.GetActiveScene().name); //morreu reinicia a fase
+        }
+       else if(other.gameObject.tag == "Fita")
+        {
+            getFita = true;
+            other.gameObject.SetActive(false);
         }
     }
 }
