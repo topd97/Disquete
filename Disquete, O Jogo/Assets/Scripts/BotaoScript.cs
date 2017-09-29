@@ -5,10 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class BotaoScript : MonoBehaviour
 {
-    public string sceane;
-    private void OnMouseDown()
+    public void CarregarCena(string sceane)
     {
-        print("oi");
         SceneManager.LoadScene(sceane);
     }
 }
