@@ -39,7 +39,7 @@ public class PlayerScript : PhysicsObject
      }*/
 
     public float maxSpeed = 7;
-    public float jumpTakeOffSpeed = 7;
+    public float jumpTakeOffSpeed = 13;
     public static int count;
     public static bool moving;
     public string nextSceane;
@@ -97,6 +97,15 @@ public class PlayerScript : PhysicsObject
                 testeRolamento = false;
             }
             testeRolamento = true;
+        }
+
+        if(velocity.y == 0)
+        {
+            animator.SetBool("TaNoChao", true);
+        }
+        else
+        {
+            animator.SetBool("TaNoChao", false);
         }
 
         if (Input.GetButtonDown("Jump") && grounded)

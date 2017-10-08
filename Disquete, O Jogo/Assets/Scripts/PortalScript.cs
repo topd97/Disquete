@@ -5,11 +5,11 @@ using UnityEngine.SceneManagement;
 
 public class PortalScript : MonoBehaviour {
     // Use this for initialization
-    private bool open;
+    private bool open=false;
     public string nextSceane;
 	void Start ()
     {
-
+        
 		
 	}
 	
